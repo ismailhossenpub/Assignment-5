@@ -22,7 +22,7 @@ const displayMeals = (meals) => {
                     <img  src="${meal.strMealThumb}">
                     <div class="card-body">
                     <h4>${meal.strMeal}</h4>
-                    <button onclick = "displayDetails('${meal.strMealThumb}')">Details</button>
+                    <button onclick = "displayDetails('${meal.idMeal}')">Details</button>
                     </div>
                     </div>
             </div>
@@ -33,13 +33,14 @@ const displayMeals = (meals) => {
 };
 
 const displayDetails = (details) => {
-  // console.log(details);
-  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${details}`;
+  console.log(details);
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${details}`;
   fetch(url)
     .then((res) => res.json())
-    .then((data) => showDetails(data.meals));
+    .then((data) => showDetails(data.value));
 };
 const showDetails = (meals) => {
+  console.log(meals);
   const mealsDiv = document.getElementById("mealsDetails");
   mealsDiv.innerHTML = `
      <div class="col">
