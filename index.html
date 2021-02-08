@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API</title>
+    <title>Search Meals API</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
@@ -14,15 +14,27 @@
 
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="container">
-    <div class=""></div>
-    <div class="InputBtn">
-      <input id="searchInput" type="text" placeholder="Search your meals" />
-      <button id="searchBtn">Search</button>
-    </div>
-    <div id="mealName"></div>
-    <div id="mealsDetails"></div>
 
+  <body class="container">
+    <!-- Searching Meals -->
+    <div class="search-bar col-md-6 mx-auto">
+      <h1 class="text-center">Search Your Chooses Meals</h1>
+      <div class=" search-box my-5 InputBtn">
+        <input id="searchInput" class="form-control"  type="text" placeholder="Search your meals" />
+        <Search id="searchBtn" class="btn btn-success search-btn">Search</button>
+      </div>
+      <div id="mealName"></div>
+    </div>
+
+    <!-- Details div  -->
+    <div id="mealDetailsDiv" class="row m-auto"></div>
+
+    <!-- Main div  -->
+    <div id="mealId" class="row d-flex justify-content-center"></div>
+<!-- Error Message -->
+<div  style="text-align: center; color: red;">
+  <h1 id="errorId"></h1>
+</div>
     <script src="app.js"></script>
   </body>
 </html>

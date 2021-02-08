@@ -5,57 +5,60 @@ document.getElementById("searchBtn").addEventListener("click", function () {
     `https://www.themealdb.com/api/json/v1/1/search.php?s=${InputValue.value}`
   )
     .then((res) => res.json())
-    .then((data) => displayMeals(data.meals));
+    .then((data) => displayMeals(data.meals))
+    .catch((error) => displayError("Something is wrong!"));
 });
 
 const displayMeals = (meals) => {
-  const mealsDiv = document.getElementById("mealName");
-
-  mealsDiv.innerHTML = "";
+  const mealDiv = document.getElementById("mealId");
+  mealDiv.innerHTML = "";
   meals.forEach((meal) => {
-    const mealDiv = document.createElement("div");
-    mealDiv.className = "mealClass";
-
+    const searchMeals = document.createElement("div");
+    searchMeals.className = "col-3 card";
+    searchMeals.addEventListener("click", function () {
+      displayDetails(meal);
+    });
     const mealInfo = `
-        <div class="col">
-                    <div class="card">
-                    <img  src="${meal.strMealThumb}">
-                    <div class="card-body">
-                    <h4>${meal.strMeal}</h4>
-                    <button onclick = "displayDetails('${meal.idMeal}')">Details</button>
-                    </div>
-                    </div>
-            </div>
+                      <img class="rounded" src="${meal.strMealThumb}">
+                      <div class="card-body">
+                        <h4>${meal.strMeal}</h4>
+                      </div>
         `;
-    mealDiv.innerHTML = mealInfo;
-    mealsDiv.appendChild(mealDiv);
+    searchMeals.innerHTML = mealInfo;
+    mealDiv.appendChild(searchMeals);
   });
 };
 
-const displayDetails = (details) => {
-  console.log(details);
-  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${details}`;
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => showDetails(data.value));
+const displayDetails = (meals) => {
+  const mealsDetails = document.getElementById("mealDetailsDiv");
+
+  const searchMealsDetails = `
+    
+                <div class="col cardDetails">
+                
+                <img width="300px" src="${meals.strMealThumb}">
+                <div class="card-body">
+                  <h2>${meals.strMeal}</h2>
+                  <h4>Ingredients</h4>
+                      <ul>
+                        <li>${meals.strIngredient1}</li>
+                        <li>${meals.strIngredient2}</li>
+                        <li>${meals.strIngredient3}</li>
+                        <li>${meals.strIngredient4}</li>
+                        <li>${meals.strIngredient5}</li>
+                        <li>${meals.strIngredient6}</li>
+                        <li>${meals.strIngredient7}</li>
+                        <li>${meals.strIngredient8}</li>
+                        <li>${meals.strIngredient9}</li>
+                        <li>${meals.strIngredient10}</li>
+                      </ul>
+                    </div>
+                    </div>
+                
+    `;
+  mealsDetails.innerHTML = searchMealsDetails;
 };
-const showDetails = (meals) => {
-  console.log(meals);
-  const mealsDiv = document.getElementById("mealsDetails");
-  mealsDiv.innerHTML = `
-     <div class="col">
-                    <div class="card">
-                    <img  src="${meals.strMealThumb}">
-                    <div class="card-body">
-                    <h4>Ingredients</h4>
-                    <h4>${meals.strMeal}</h4>
-                    <li class ="list-group-item border-0 mb-3"><i class="fas fa-check-square"></i>${meals.strIngredient1}</li>
-                    <li class ="list-group-item border-0 mb-3"><i class="fas fa-check-square"></i>${meals.strIngredient2}</li>
-                    <li class ="list-group-item border-0 mb-3"><i class="fas fa-check-square"></i>${meals.strIngredient3}</li>
-                    <li class ="list-group-item border-0 mb-3"><i class="fas fa-check-square"></i>${meals.strIngredient4}</li>
-                    <li class ="list-group-item border-0 mb-3"><i class="fas fa-check-square"></i>${meals.strIngredient5}</li>
-                    </div>
-                    </div>
-            </div>
-     `;
+const displayError = (error) => {
+  const errorTag = document.getElementById("errorId");
+  errorTag.innerText = error;
 };
